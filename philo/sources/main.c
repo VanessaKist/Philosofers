@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 16:35:21 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/03/24 16:00:06 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/03/24 16:38:01 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ typedef struct s_philo
     time_t	time_eat;
 	time_t	time_sleep;
     time_t  time_die;
-    time_t	last_meal;
     time_t  death;
     time_t  time_spended;
 } t_philo;
@@ -65,27 +64,34 @@ void *routine(void * arg)
     printf("%ld Philosofer %d is thinking!\n", philo->time_spended, philo->id);
 }
 
-int main(int argc, char **argv)
+t_philo	*new_philo(char **argv)
 {
-    pthread_t myThread;
-    pthread_t myThread2;
+	t_philo	*philo;
 
-    t_philo *philo;
-    philo = malloc(sizeof(t_philo) * 2);
-    
+	philo = malloc(sizeof(t_philo));
+
     philo->time_spended = 0;
-    philo->last_meal = get_time_in_ms();
     philo->time_eat = atoi(argv[1]);
     philo->time_sleep = atoi(argv[2]);
     philo->time_die = atoi(argv[3]);
     philo->id = 1;
     philo->left_hand_fork = 1;
     philo->right_hand_fork = 1;
+	return (philo);
+}
+
+int main(int argc, char **argv)
+{
+    pthread_t myThread;
+    pthread_t myThread2;
+    time_t	last_meal;
+    t_philo	*philo;
+    
+    philo = new_philo(argv);
+    last_meal = get_time_in_ms();
     pthread_create(&myThread, NULL, &routine, (void *)(philo));
-    pthread_join(myThread, NULL);
-    philo->time_spended = 0;
-    philo->id = 2;
     pthread_create(&myThread2, NULL, &routine, (void *)(philo));
+    pthread_join(myThread, NULL);
     pthread_join(myThread2, NULL);
     return (0);
 }
