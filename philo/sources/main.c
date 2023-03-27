@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 16:35:21 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/03/27 17:22:06 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/03/27 19:01:45 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ typedef struct s_philo
 	int	    tot;
     int     left_hand_fork;
     int     right_hand_fork;
+    pthread_t thread;
     time_t	time_eat;
 	time_t	time_sleep;
     time_t  time_die;
@@ -76,6 +77,7 @@ t_philo	*new_philo(char **argv, int i)
     philo->id = i + 1;
     philo->left_hand_fork = 1;
     philo->right_hand_fork = 1;
+    philo->thread = malloc(sizeof(pthread_t));
 	return (philo);
 }
 
@@ -89,12 +91,15 @@ int main(int argc, char **argv)
 
     i = -1;   
     while (i++ < atoi(argv[1]))
+    {
         philo = new_philo(argv, i);
+        pthread_create(&philo->thread, NULL, &routine, (void *)(philo));        
+        pthread_join(philo->thread, NULL);
+    }
     last_meal = get_time_in_ms();
-    pthread_create(&myThread, NULL, &routine, (void *)(philo));
-    pthread_create(&myThread2, NULL, &routine, (void *)(philo));
-    pthread_join(myThread, NULL);
-    pthread_join(myThread2, NULL);
+   // pthread_create(&myThread, NULL, &routine, (void *)(philo));
+ //   pthread_create(&myThread2, NULL, &routine, (void *)(philo));
+    //pthread_join(myThread2, NULL);
     return (0);
 }
 
