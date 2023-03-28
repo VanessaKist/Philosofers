@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:12:09 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/03/28 17:41:10 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:16:40 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,9 @@ void *routine(void * arg)
     }
     printf("%ld Philosofer %d is sleeping!\n", philo->time_spended, philo->id);
     philo->time_spended = sleep_philo(philo);
+	// if philosofars ja comeu entao
+		//think e passe garfos para proximo
     printf("%ld Philosofer %d is thinking!\n", philo->time_spended, philo->id);
-}
-
-t_philo	*new_philo(char **argv, int i)
-{
-	t_philo	*philo;
-    
-    philo = malloc(sizeof(t_philo));
-    philo->time_spended = 0;
-    philo->time_eat = atoi(argv[2]);
-    philo->time_sleep = atoi(argv[3]);
-    philo->time_die = atoi(argv[4]);
-    philo->id = i + 1;
-    philo->left_hand_fork = 1;
-    philo->right_hand_fork = 1;
-	return (philo);
 }
 
 int main(int argc, char **argv)
@@ -49,11 +36,13 @@ int main(int argc, char **argv)
     pthread_t myThread;
     pthread_t myThread2;
     time_t	last_meal;
+	time_t  death;
     t_philo	*philo;
     int i;
 
     i = -1;   
     last_meal = get_time_in_ms();
+	death = last_meal + time_die;
     while (++i < atoi(argv[1]))
     {
         philo = new_philo(argv, i);

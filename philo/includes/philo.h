@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:33:45 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/03/28 17:45:13 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/03/28 18:16:21 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ typedef struct s_philo
     time_t	time_eat;
 	time_t	time_sleep;
     time_t  time_die;
-    time_t  death;
     time_t  time_spended;
 } t_philo;
 
 time_t	get_time_in_ms(void);
 time_t  eat(t_philo *philo);
 time_t  sleep_philo(t_philo *philo);
+t_philo	*new_philo(char **argv, int i);
 
 #endif

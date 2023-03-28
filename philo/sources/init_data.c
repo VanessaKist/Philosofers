@@ -1,31 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   actions.c                                          :+:      :+:    :+:   */
+/*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/28 17:24:31 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/03/28 18:19:23 by vkist-si         ###   ########.fr       */
+/*   Created: 2023/03/28 17:48:20 by vkist-si          #+#    #+#             */
+/*   Updated: 2023/03/28 17:53:33 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-time_t  eat(t_philo *philo)
+t_philo	*new_philo(char **argv, int i)
 {
-    philo->time_spended += philo->time_eat + last meal;
-    if (philo->time_spended >= philo->time_death)
-        return(printf("Dead."));   
-    else
-        return(philo->time_spended);
-}
-
-time_t  sleep_philo(t_philo *philo)
-{
-    philo->time_spended += philo->time_sleep;
-    if (philo->time_spended >= philo->time_die)
-        return(printf("Dead\n"));   
-    else
-        return(philo->time_spended);
+	t_philo	*philo;
+    
+    philo = malloc(sizeof(t_philo));
+    philo->time_spended = 0;
+    philo->time_eat = atoi(argv[2]);
+    philo->time_sleep = atoi(argv[3]);
+    philo->time_die = atoi(argv[4]);
+    philo->id = i + 1;
+    philo->left_hand_fork = 1;
+    philo->right_hand_fork = 1;
+	return (philo);
 }
