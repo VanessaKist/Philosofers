@@ -1,21 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   time.c                                             :+:      :+:    :+:   */
+/*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/03/28 17:20:54 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/03/28 17:21:26 by vkist-si         ###   ########.fr       */
+/*   Created: 2023/03/28 17:24:31 by vkist-si          #+#    #+#             */
+/*   Updated: 2023/03/28 17:40:50 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-time_t	get_time_in_ms(void)
+time_t  eat(t_philo *philo)
 {
-	struct timeval	tv;
+    philo->time_spended += philo->time_eat;
+    if (philo->time_spended >= philo->time_die)
+        return(printf("Dead."));   
+    else
+        return(philo->time_spended);
+}
 
-	gettimeofday(&tv, NULL);
-	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
+time_t  sleep_philo(t_philo *philo)
+{
+    philo->time_spended += philo->time_sleep;
+    if (philo->time_spended >= philo->time_die)
+        return(printf("Dead\n"));   
+    else
+        return(philo->time_spended);
 }

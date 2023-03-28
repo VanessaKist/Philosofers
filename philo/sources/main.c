@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/17 16:35:21 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/03/27 19:01:45 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/03/28 17:40:38 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,12 +40,20 @@ time_t	get_time_in_ms(void)
 
 time_t  eat(t_philo *philo)
 {
-    return(philo->time_spended + philo->time_eat);
+    philo->time_spended += philo->time_eat;
+    if (philo->time_spended >= philo->time_die)
+        return(printf("Dead."));   
+    else
+        return(philo->time_spended);
 }
 
-time_t  sleep(t_philo *philo)
+time_t  sleep_philo(t_philo *philo)
 {
-    return(philo->time_spended + philo->time_sleep);
+    philo->time_spended += philo->time_sleep;
+    if (philo->time_spended >= philo->time_die)
+        return(printf("Dead\n"));   
+    else
+        return(philo->time_spended);
 }
 
 void *routine(void * arg)
@@ -57,8 +65,8 @@ void *routine(void * arg)
     {
         printf("%ld Philosofer %d is eating!\n", philo->time_spended, philo->id);
         philo->time_spended = eat(philo);
-      //  philo->left_hand_fork = 0;
-      //  philo->right_hand_fork = 0;
+      //philo->left_hand_fork = 0;
+      //philo->right_hand_fork = 0;
     }
     printf("%ld Philosofer %d is sleeping!\n", philo->time_spended, philo->id);
     philo->time_spended = sleep(philo);
@@ -77,7 +85,6 @@ t_philo	*new_philo(char **argv, int i)
     philo->id = i + 1;
     philo->left_hand_fork = 1;
     philo->right_hand_fork = 1;
-    philo->thread = malloc(sizeof(pthread_t));
 	return (philo);
 }
 
@@ -90,16 +97,13 @@ int main(int argc, char **argv)
     int i;
 
     i = -1;   
-    while (i++ < atoi(argv[1]))
+    last_meal = get_time_in_ms();
+    while (++i < atoi(argv[1]))
     {
         philo = new_philo(argv, i);
         pthread_create(&philo->thread, NULL, &routine, (void *)(philo));        
         pthread_join(philo->thread, NULL);
     }
-    last_meal = get_time_in_ms();
-   // pthread_create(&myThread, NULL, &routine, (void *)(philo));
- //   pthread_create(&myThread2, NULL, &routine, (void *)(philo));
-    //pthread_join(myThread2, NULL);
     return (0);
 }
 
@@ -108,4 +112,4 @@ int main(int argc, char **argv)
 // 200 Philosopher 2 is eating
 // 300 Philosopher 1 is thinking
 // 400 Philosopher 2 is sleeping
-// 500 Philosopher 2 is thinking
+// 500 Philosopher 2 is thinking    

@@ -4,7 +4,9 @@ PATH_SRCS = ./sources/
 PATH_OBJS = ./objects/
 PATH_INCL = ./includes/
 
-SRCS = $(addprefix $(PATH_SRCS), philo.c)
+SRCS = $(addprefix $(PATH_SRCS), philo.c \
+	actions.c \
+	time.c)
 
 OBJS = $(patsubst $(PATH_SRCS)%.c, $(PATH_OBJS)%.o, $(SRCS))
 
