@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:12:09 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/03/29 17:49:17 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/03/29 18:06:48 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,16 @@ void *routine(void * arg)
     philo = (t_philo*)arg;
     if (philo->left_hand_fork == 1 && philo->right_hand_fork == 1)
     {
-        printf("%ld Philosofer %d is eating!\n", philo->time_spended, philo->id);
-        philo->time_spended = eat(philo);
+        printf("%ld Philosofer %d is eating!\n", (philo->data->time_spended - philo->data->last_meal), philo->id);
+        philo->data->time_spended = eat(philo);
       //philo->left_hand_fork = 0;
       //philo->right_hand_fork = 0;
     }
-    printf("%ld Philosofer %d is sleeping!\n", (philo->time_spended - philo->data->last_meal), philo->id);
-    philo->time_spended = sleep_philo(philo);
+    printf("%ld Philosofer %d is sleeping!\n", (philo->data->time_spended - philo->data->last_meal), philo->id);
+    philo->data->time_spended = sleep_philo(philo);
 	// if philosofars ja comeu entao
 		//think e passe garfos para proximo
-    printf("%ld Philosofer %d is thinking!\n", (philo->time_spended - philo->data->last_meal), philo->id);
+    printf("%ld Philosofer %d is thinking!\n", (philo->data->time_spended - philo->data->last_meal), philo->id);
 }
 
 int main(int argc, char **argv)

@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:33:45 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/03/29 17:19:00 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/03/29 17:57:19 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ typedef struct s_data
 {
     time_t	last_meal;
 	time_t  death;
+    time_t  time_spended;
 }t_data;
 
 typedef struct s_philo
@@ -36,7 +37,6 @@ typedef struct s_philo
     time_t	time_eat;
 	time_t	time_sleep;
     time_t  time_die;
-    time_t  time_spended;
     t_data	*data;
 } t_philo;
 
