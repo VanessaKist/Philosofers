@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:33:45 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/03/28 18:16:21 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/03/29 17:19:00 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,10 +20,16 @@
 #include <string.h>
 # include <sys/time.h> 
 
+typedef struct s_data
+{
+    time_t	last_meal;
+	time_t  death;
+}t_data;
+
 typedef struct s_philo
 {
 	int	    id;
-	int	    tot;
+	int	    tot;	
     int     left_hand_fork;
     int     right_hand_fork;
     pthread_t thread;
@@ -31,11 +37,13 @@ typedef struct s_philo
 	time_t	time_sleep;
     time_t  time_die;
     time_t  time_spended;
+    t_data	*data;
 } t_philo;
 
 time_t	get_time_in_ms(void);
 time_t  eat(t_philo *philo);
 time_t  sleep_philo(t_philo *philo);
-t_philo	*new_philo(char **argv, int i);
+t_philo	*new_philo(t_data *data, char **argv, int i);
+t_data *new_data(char **argv);
 
 #endif

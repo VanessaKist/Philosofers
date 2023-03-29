@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:12:09 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/03/28 18:16:40 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/03/29 17:49:17 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,28 +24,27 @@ void *routine(void * arg)
       //philo->left_hand_fork = 0;
       //philo->right_hand_fork = 0;
     }
-    printf("%ld Philosofer %d is sleeping!\n", philo->time_spended, philo->id);
+    printf("%ld Philosofer %d is sleeping!\n", (philo->time_spended - philo->data->last_meal), philo->id);
     philo->time_spended = sleep_philo(philo);
 	// if philosofars ja comeu entao
 		//think e passe garfos para proximo
-    printf("%ld Philosofer %d is thinking!\n", philo->time_spended, philo->id);
+    printf("%ld Philosofer %d is thinking!\n", (philo->time_spended - philo->data->last_meal), philo->id);
 }
 
 int main(int argc, char **argv)
 {
     pthread_t myThread;
     pthread_t myThread2;
-    time_t	last_meal;
-	time_t  death;
+    t_data  *data;
     t_philo	*philo;
     int i;
 
-    i = -1;   
-    last_meal = get_time_in_ms();
-	death = last_meal + time_die;
+    i = -1;
+    data = new_data(argv);
+    printf("data->last_meal: %ld\n data->death: %ld\n", data->last_meal, data->death);
     while (++i < atoi(argv[1]))
     {
-        philo = new_philo(argv, i);
+        philo = new_philo(data, argv, i);
         pthread_create(&philo->thread, NULL, &routine, (void *)(philo));        
         pthread_join(philo->thread, NULL);
     }
