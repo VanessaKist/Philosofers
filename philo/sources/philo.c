@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:12:09 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/03/29 18:45:55 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/03/30 18:24:33 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,21 @@ void *routine(void * arg)
     philo = (t_philo*)arg;
     if (philo->data->left_hand_fork == 1 && philo->data->right_hand_fork == 1)
     {
-        printf("%ld Philosofer %d is eating!\n", (philo->data->time_spended - philo->data->last_meal), philo->id);
-        philo->data->time_spended = eat_philo(philo);
-        philo->data->left_hand_fork = 0;
-        philo->data->right_hand_fork = 0;
+        printf("%ld Philosofer %d is eating!\n", (get_time_in_ms() - philo->data->last_meal), philo->id);
+        usleep(philo->time_eat * 1000);
+ 
+      //  philo->data->left_hand_fork = 0;
+     //   philo->data->right_hand_fork = 0;
     }
-    printf("%ld Philosofer %d is sleeping!\n", (philo->data->time_spended - philo->data->last_meal), philo->id);
-    philo->data->time_spended = sleep_philo(philo);
+    printf("%ld Philosofer %d is sleeping!\n", (get_time_in_ms() - philo->data->last_meal), philo->id);
+    usleep(philo->time_sleep * 1000);
 	// if philosofars ja comeu entao
 		//think e passe garfos para proximo
-    printf("%ld Philosofer %d is thinking!\n", (philo->data->time_spended - philo->data->last_meal), philo->id);
+    printf("%ld Philosofer %d is thinking!\n", (get_time_in_ms() - philo->data->last_meal), philo->id);
 }
 
 int main(int argc, char **argv)
 {
-    pthread_t myThread;
-    pthread_t myThread2;
     t_data  *data;
     t_philo	*philo;
     int i;
@@ -44,9 +43,9 @@ int main(int argc, char **argv)
     while (++i < atoi(argv[1]))
     {
         philo = new_philo(data, argv, i);
-        pthread_create(&philo->thread, NULL, &routine, (void *)(philo));        
-        pthread_join(philo->thread, NULL);
     }
+    pthread_create(&philo->thread, NULL, &routine, (void *)(philo));        
+    pthread_join(philo->thread, NULL);
     return (0);
 }
 
