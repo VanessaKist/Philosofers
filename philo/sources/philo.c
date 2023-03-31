@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:12:09 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/03/30 18:24:33 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/03/30 19:02:20 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,20 @@ void *routine(void * arg)
 int main(int argc, char **argv)
 {
     t_data  *data;
-    t_philo	*philo;
+    t_philo	**philo;
     int i;
 
     i = -1;
+    philo = malloc(atoi(argv[1]) * sizeof(t_philo*));
     data = new_data(argv);
     while (++i < atoi(argv[1]))
     {
-        philo = new_philo(data, argv, i);
+        philo[i] = new_philo(data, argv, i);
+        pthread_create(&philo[i]->thread, NULL, &routine, (void *)(philo[i]));        
     }
-    pthread_create(&philo->thread, NULL, &routine, (void *)(philo));        
-    pthread_join(philo->thread, NULL);
+    i = -1;
+    while (++i < atoi(argv[1]))
+        pthread_join(philo[i]->thread, NULL);
     return (0);
 }
 
