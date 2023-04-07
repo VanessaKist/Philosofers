@@ -6,30 +6,42 @@
 /*   By: vkist-si <vkist-si@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:12:09 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/05 00:43:50 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/07 22:04:09 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
+
+void get_forks(t_philo *philo)
+{
+	get_left_fork();//lockit
+	get_right_fork();//lockit
+}
 
 void *routine(void * arg)
 {
     t_philo *philo;
     
     philo = (t_philo*)arg;
-    if (philo->data->left_hand_fork == 1 && philo->data->right_hand_fork == 1)
-    {
+	
+	if (philo->condition == THINKING)
+	{
+	//	pthread_mutex_lock(&philo->data->mutexEat);
+		get_forks(philo);
+		philo->condition = EATING;
         printf("%ld Philosofer %d is eating!\n", (get_time_in_ms() - philo->data->last_meal), philo->id);
         usleep(philo->time_eat * 1000);
- 
-      //  philo->data->left_hand_fork = 0;
-     //   philo->data->right_hand_fork = 0;
-    }
-    printf("%ld Philosofer %d is sleeping!\n", (get_time_in_ms() - philo->data->last_meal), philo->id);
-    usleep(philo->time_sleep * 1000);
-	// if philosofars ja comeu entao
-		//think e passe garfos para proximo
-
+		//unlock forks
+	//	pthread_mutex_unlock(&philo->data->mutexEat);
+	}
+	if (philo->condition == SLEEPING)
+	{
+		printf("%ld Philosofer %d is sleeping!\n", (get_time_in_ms() - philo->data->last_meal), philo->id);
+		usleep(philo->time_sleep * 1000);
+	}
+	philo->condition == THINKING;
+	printf("%ld Philosofer %d is thinking!\n", (get_time_in_ms() - philo->data->last_meal), philo->id);
+	
 }
 
 int main(int argc, char **argv)
@@ -49,6 +61,8 @@ int main(int argc, char **argv)
     i = -1;
     while (++i < atoi(argv[1]))
         pthread_join(philo[i]->thread, NULL);
+//	pthread_mutex_destroy(&data->mutexEat);
+//	pthread_mutex_destroy(&data->mutexSleep);
     return (0);
 }
 
