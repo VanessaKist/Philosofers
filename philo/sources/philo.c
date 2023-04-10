@@ -3,20 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkist-si <vkist-si@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:12:09 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/07 22:04:09 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/10 19:01:00 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void get_forks(t_philo *philo)
-{
-	get_left_fork();//lockit
-	get_right_fork();//lockit
-}
+// void get_forks(t_philo *philo)
+// {
+// 	pthread_mutex_lock(philo->left_fork);
+//     printf("%ld Philosofer %d has taken a fork.\n", (get_time_in_ms() - philo->data->last_meal), philo->id);
+//     printf("%ld Philosofer %d has taken a fork.\n", (get_time_in_ms() - philo->data->last_meal), philo->id);
+// 	pthread_mutex_lock(philo->right_fork);
+// }
 
 void *routine(void * arg)
 {
@@ -27,19 +29,21 @@ void *routine(void * arg)
 	if (philo->condition == THINKING)
 	{
 	//	pthread_mutex_lock(&philo->data->mutexEat);
-		get_forks(philo);
+	//	get_forks(philo);
 		philo->condition = EATING;
         printf("%ld Philosofer %d is eating!\n", (get_time_in_ms() - philo->data->last_meal), philo->id);
         usleep(philo->time_eat * 1000);
-		//unlock forks
+	//	pthread_mutex_unlock(philo->left_fork);
+	//  pthread_mutex_unlock(philo->right_fork);
 	//	pthread_mutex_unlock(&philo->data->mutexEat);
 	}
+    philo->condition = SLEEPING;
 	if (philo->condition == SLEEPING)
 	{
 		printf("%ld Philosofer %d is sleeping!\n", (get_time_in_ms() - philo->data->last_meal), philo->id);
 		usleep(philo->time_sleep * 1000);
 	}
-	philo->condition == THINKING;
+	philo->condition = THINKING;
 	printf("%ld Philosofer %d is thinking!\n", (get_time_in_ms() - philo->data->last_meal), philo->id);
 	
 }
@@ -51,8 +55,8 @@ int main(int argc, char **argv)
     int i;
 
     i = -1;
-    philo = malloc(atoi(argv[1]) * sizeof(t_philo*));
     data = new_data(argv);
+    philo = malloc(atoi(argv[1]) * sizeof(t_philo*));
     while (++i < atoi(argv[1]))
     {
         philo[i] = new_philo(data, argv, i);
@@ -61,6 +65,7 @@ int main(int argc, char **argv)
     i = -1;
     while (++i < atoi(argv[1]))
         pthread_join(philo[i]->thread, NULL);
+   // free_forks(data);    
 //	pthread_mutex_destroy(&data->mutexEat);
 //	pthread_mutex_destroy(&data->mutexSleep);
     return (0);
