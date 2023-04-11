@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkist-si <vkist-si@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 17:48:20 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/10 20:02:08 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/11 18:04:13 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,25 +23,25 @@ t_data *new_data(char **argv)
     data->last_meal = get_time_in_ms();
     data->time_spended = data->last_meal;
     data->death = data->last_meal + atoi(argv[4]);
-    data->fork = init_forks(data); //alocation of memory for forks
+ //   data->fork = init_forks(data); //alocation of memory for forks
     return(data);
 }
 
-t_fork	**init_forks(t_data *data)
-{
-	int	i;
-	t_fork	**forks;
+// t_fork	**init_forks(t_data *data)
+// {
+// 	int	i;
+// 	t_fork	**forks;
 
-	forks = malloc(sizeof(t_fork **) * data->tot);
-	i = 0;
-	while (i < data->tot)
-	{
-		forks[i] = malloc(sizeof(t_fork));
-		//pthread_mutex_init(forks[i], NULL);
-		i++;
-	}
-	return (forks);
-}
+// 	forks = malloc(sizeof(t_fork **) * data->tot);
+// 	i = 0;
+// 	while (i < data->tot)
+// 	{
+// 		forks[i] = malloc(sizeof(t_fork));
+// 		//pthread_mutex_init(forks[i], NULL);
+// 		i++;
+// 	}
+// 	return (forks);
+// }
 
 // void	free_forks(t_data *data)
 // {
@@ -66,8 +66,8 @@ t_philo	*new_philo(t_data *data, char **argv, int i)
     philo->time_die = atoi(argv[4]);
     philo->id = i + 1;
 	philo->condition = THINKING;
-	philo->right_fork = &philo->fork[i];
-    philo->lelf_fork = &philo->fork[(i + 1) % atoi(argv[1])]; // to prevent more fork than philos
+	philo->fork_r = NULL;
+    philo->fork_l = NULL;
     philo->data = data;
 	return (philo);
 }
