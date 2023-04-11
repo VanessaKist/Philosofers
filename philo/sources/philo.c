@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:12:09 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/10 19:01:00 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/11 20:39:06 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,14 @@ void *routine(void * arg)
 	
 }
 
+void assing_fork(t_philo *philo, int i)
+{
+    if (i == 0)
+		philo->fork_r = philo[philo->data->tot].fork_l;
+	else
+ 		philo->fork_r = philo[i - 1].fork_l;
+}
+
 int main(int argc, char **argv)
 {
     t_data  *data;
@@ -58,10 +66,13 @@ int main(int argc, char **argv)
     data = new_data(argv);
     philo = malloc(atoi(argv[1]) * sizeof(t_philo*));
     while (++i < atoi(argv[1]))
-    {
         philo[i] = new_philo(data, argv, i);
-        pthread_create(&philo[i]->thread, NULL, &routine, (void *)(philo[i]));        
-    }
+    i = -1;
+    while (++i < atoi(argv[1]))
+        assing_fork(*philo, i);       
+    i = -1;
+    while (++i < atoi(argv[1]))
+        pthread_create(&philo[i]->thread, NULL, &routine, (void *)(philo[i]));
     i = -1;
     while (++i < atoi(argv[1]))
         pthread_join(philo[i]->thread, NULL);
