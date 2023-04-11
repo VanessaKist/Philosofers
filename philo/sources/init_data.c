@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 17:48:20 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/11 18:04:13 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/11 18:56:36 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,3 +71,4 @@ t_philo	*new_philo(t_data *data, char **argv, int i)
     philo->data = data;
 	return (philo);
 }
+//https://pages.mtu.edu/~shene/NSF-3/e-Book/MONITOR/Philosopher/MON-example-Philos.html
