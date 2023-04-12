@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 17:24:31 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/07 19:36:13 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/12 22:24:04 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,4 +30,18 @@
 //     printf("%ld Philosofer %d is sleeping!\n", (get_time_in_ms() - philo->data->last_meal), philo->id);
 //     usleep(philo->time_sleep * 1000);
 // 	pthread_mutex_unlock(&philo->data->mutexSleep);
+// }
+
+// void assing_fork(t_philo *philo, int i)
+// {
+// 		if (philo->data->tot > 1)
+// 		prev_fork = table->forks[philo->data->tot - 1];
+// 		// if (i == philo->data->tot - 1)
+// 		// 	philo[i].fork_r = &philo[0].fork_l;
+// 		// else
+// 		// 	philo[i].fork_r = &philo[i + 1].fork_l;
+//     // if (i == philo->data->tot)
+// 	// 	philo[0].fork_r = philo[philo->data->tot].fork_l;
+// 	// else if (i != 0)
+//  	// 	philo[i].fork_r = philo[i - 1].fork_l;
 // }

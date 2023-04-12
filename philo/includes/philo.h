@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkist-si <vkist-si@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:33:45 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/11 18:19:40 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/12 23:15:27 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,15 @@ enum e_philo_condition {
 
 typedef pthread_mutex_t t_fork;
 
+typedef pthread_mutex_t	t_mutex;
 typedef struct s_data
 {
     time_t	last_meal;
 	time_t  death;
     time_t  time_spended;
 	int		tot;
-	t_fork	**fork;
+	t_fork	**forks;
+	t_mutex mutex;
 } t_data;
 
 typedef struct s_philo
@@ -46,8 +48,7 @@ typedef struct s_philo
     time_t	time_eat;
 	time_t	time_sleep;
     time_t  time_die;
-	t_fork	*fork_r;
-	t_fork	*fork_l;
+	t_fork	**forks;
     t_data	*data;
 } t_philo;
 
@@ -56,7 +57,7 @@ time_t  		eat_philo(t_philo *philo);
 void  			sleep_philo(t_philo *philo);
 t_philo			*new_philo(t_data *data, char **argv, int i);
 t_data			*new_data(char **argv);
-pthread_mutex_t	**init_forks(t_data *data);
+t_fork	**init_forks(t_data *data);
 void 			get_forks(t_philo *philo);
 void			free_forks(t_data *data);
 
