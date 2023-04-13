@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 17:48:20 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/13 16:39:47 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/13 20:06:27 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,13 @@ t_philo	*new_philo(t_data *data, char **argv, int i)
     philo->time_sleep = atoi(argv[3]);
     philo->time_die = atoi(argv[4]);
     philo->id = i + 1;
-	philo->condition = THINKING;
 	philo->forks[1] = data->forks[i];
-	philo->forks[0] = &data->forks[1][(i + 1) % data->tot];
+	philo->forks[0] = data->forks[(i + 1) % data->tot];
+	if (philo->id % 2)
+	{
+		philo->forks[1] = data->forks[(i + 1) % data->tot];
+		philo->forks[0] = data->forks[i];
+	}
     philo->data = data;
 	return (philo);
 }

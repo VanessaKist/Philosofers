@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkist-si <vkist-si@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:33:45 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/12 23:15:27 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/13 19:38:53 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,16 @@
 #include <string.h>
 # include <sys/time.h>
 
-enum e_philo_condition {
-	EATING,
-	SLEEPING,
-	THINKING
-};
+// enum e_philo_condition {
+// EATING,
+// SLEEPING,
+// THINKING
+// };
 
 typedef pthread_mutex_t t_fork;
 
 typedef pthread_mutex_t	t_mutex;
+
 typedef struct s_data
 {
     time_t	last_meal;
