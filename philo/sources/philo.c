@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkist-si <vkist-si@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:12:09 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/12 23:45:17 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/13 17:11:52 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,10 +32,10 @@ void *routine(void * arg)
 		pthread_mutex_lock(&(philo->data->mutex));
 		philo->condition = EATING;
         printf("%ld Philosofer %d is eating!\n", (get_time_in_ms() - philo->data->last_meal), philo->id);
-		pthread_mutex_unlock(philo->forks[1]);
-		pthread_mutex_unlock(philo->forks[0]);
 		pthread_mutex_unlock(&(philo->data->mutex));
         usleep(philo->time_eat * 1000);
+		pthread_mutex_unlock(philo->forks[1]);
+		pthread_mutex_unlock(philo->forks[0]);
 	}
     philo->condition = SLEEPING;
 	if (philo->condition == SLEEPING)
@@ -47,8 +47,6 @@ void *routine(void * arg)
 	printf("%ld Philosofer %d is thinking!\n", (get_time_in_ms() - philo->data->last_meal), philo->id);
 	
 }
-
-
 
 int main(int argc, char **argv)
 {

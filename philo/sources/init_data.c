@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkist-si <vkist-si@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 17:48:20 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/12 23:16:51 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/13 16:39:47 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,8 @@ t_philo	*new_philo(t_data *data, char **argv, int i)
     philo->time_die = atoi(argv[4]);
     philo->id = i + 1;
 	philo->condition = THINKING;
-	philo->forks[0] = data->forks[data->tot - 1];
-    philo->forks[1] = data->forks[i];
+	philo->forks[1] = data->forks[i];
+	philo->forks[0] = &data->forks[1][(i + 1) % data->tot];
     philo->data = data;
 	return (philo);
 }
