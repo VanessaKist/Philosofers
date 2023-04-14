@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkist-si <vkist-si@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:33:45 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/13 19:38:53 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/14 17:44:22 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,8 @@ typedef struct s_data
     time_t  time_spended;
 	int		tot;
 	t_fork	**forks;
-	t_mutex mutex;
+	t_mutex mutex_last_meal;
+	t_mutex mutex_stop;
 } t_data;
 
 typedef struct s_philo

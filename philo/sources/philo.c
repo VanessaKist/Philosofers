@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   philo.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkist-si <vkist-si@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:12:09 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/13 20:18:17 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/14 17:44:14 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,9 +47,9 @@ void *routine(void * arg)
     philo = (t_philo*)arg;
 	
 	take_fork(philo);
-	pthread_mutex_lock(&(philo->data->mutex));
+	pthread_mutex_lock(&(philo->data->mutex_last_meal));
     printf("%ld Philosofer %d is eating!\n", (get_time_in_ms() - philo->data->last_meal), philo->id);
-	pthread_mutex_unlock(&(philo->data->mutex));
+	pthread_mutex_unlock(&(philo->data->mutex_last_meal));
     usleep(philo->time_eat * 1000);
 	pthread_mutex_unlock(philo->forks[1]);
 	pthread_mutex_unlock(philo->forks[0]);
@@ -62,9 +62,9 @@ int main(int argc, char **argv)
 {
     t_data  *data;
     t_philo	**philo;
-	pthread_t	monitoring_thread;
     int i;
-
+	pthread_t	monitoring_thread;
+	
     i = -1;
     data = new_data(argv);
     philo = malloc(atoi(argv[1]) * sizeof(t_philo*));

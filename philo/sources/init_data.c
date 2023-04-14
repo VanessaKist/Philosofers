@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init_data.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkist-si <vkist-si@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 17:48:20 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/13 20:06:27 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/14 17:38:25 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ t_data *new_data(char **argv)
     data->time_spended = data->last_meal;
     data->death = data->last_meal + atoi(argv[4]);
     data->forks = init_forks(data); //alocation of memory for forks
-	pthread_mutex_init(&data->mutex, NULL);
+	pthread_mutex_init(&data->mutex_last_meal, NULL);
+	pthread_mutex_init(&data->mutex_stop, NULL);
     return(data);
 }
 
