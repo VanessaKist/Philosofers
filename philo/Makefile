@@ -15,7 +15,7 @@ SRCS = $(addprefix $(PATH_SRCS), philo.c \
 OBJS = $(patsubst $(PATH_SRCS)%.c, $(PATH_OBJS)%.o, $(SRCS))
 
 
-//CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -g3
 IFLAGS = -I $(PATH_INCL)
 
 all: $(NAME)
