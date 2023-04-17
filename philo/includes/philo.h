@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:33:45 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/14 17:44:22 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/16 00:31:09 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,13 +54,16 @@ typedef struct s_philo
     t_data	*data;
 } t_philo;
 
-time_t			get_time_in_ms(void);
-time_t  		eat_philo(t_philo *philo);
-void  			sleep_philo(t_philo *philo);
-t_philo			*new_philo(t_data *data, char **argv, int i);
-t_data			*new_data(char **argv);
+time_t	get_time_in_ms(void);
+time_t  eat_philo(t_philo *philo);
+void  	sleep_philo(t_philo *philo);
+t_philo	*new_philo(t_data *data, char **argv, int i);
+t_data	*new_data(char **argv);
 t_fork	**init_forks(t_data *data);
-void 			get_forks(t_philo *philo);
-void			free_forks(t_data *data);
+void 	get_forks(t_philo *philo);
+void	free_forks(t_data *data);
+void 	*check_death(void *arg);
+void 	create_thread(t_data *data, char **argv);
+void 	*routine(void * arg);
 
 #endif

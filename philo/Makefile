@@ -5,8 +5,11 @@ PATH_OBJS = ./objects/
 PATH_INCL = ./includes/
 
 SRCS = $(addprefix $(PATH_SRCS), philo.c \
-	actions.c \
 	time.c \
+	monitor.c \
+	free.c \
+	threads.c \
+	dinner.c \
 	init_data.c)
 
 OBJS = $(patsubst $(PATH_SRCS)%.c, $(PATH_OBJS)%.o, $(SRCS))
