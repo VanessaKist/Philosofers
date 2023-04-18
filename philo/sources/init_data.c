@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 17:48:20 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/17 19:08:40 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/18 17:56:50 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,14 @@ t_data *new_data(char **argv)
     
     data = malloc(sizeof(t_data));
     data->tot = atoi(argv[1]);
-    data->last_meal = get_time_in_ms();
-    data->time_spended = data->last_meal;
-    data->death = data->last_meal + atoi(argv[4]);
+ 	data->start_time = get_time_in_ms();
     data->forks = init_forks(data);
 	pthread_mutex_init(&data->mutex_last_meal, NULL);
 	pthread_mutex_init(&data->mutex_eat, NULL);
 	pthread_mutex_init(&data->mutex_stop, NULL);
 	pthread_mutex_init(&data->mutex_meals, NULL);
 	pthread_mutex_init(&data->mutex_print, NULL);
+	pthread_mutex_init(&data->mutex_monitor, NULL);
     return(data);
 }
 
@@ -51,7 +50,9 @@ t_data *new_data(char **argv)
 t_philo	*new_philo(t_data *data, char **argv, int i)
 {
     t_philo *philo;
+	long	last_meal;
 
+	last_meal = get_time_in_ms();
 	philo = malloc(atoi(argv[1]) * sizeof(t_philo));
 	while (i < atoi(argv[1]))
 	{   
@@ -59,8 +60,9 @@ t_philo	*new_philo(t_data *data, char **argv, int i)
 		philo[i].time_eat = atoi(argv[2]);
 		philo[i].time_sleep = atoi(argv[3]);
 		philo[i].time_die = atoi(argv[4]);
-		philo[i].id = i;
+		philo[i].id = i +1;
 		philo[i].meals_done = 0;
+		philo[i].last_meal = last_meal;
 		//philo[i].meals = atoi(argv[5]);
 		philo[i].forks[1] = data->forks[i];
 		philo[i].forks[0] = data->forks[(i + 1) % data->tot];
@@ -72,6 +74,5 @@ t_philo	*new_philo(t_data *data, char **argv, int i)
 		philo[i].data = data;
 		i++;
 	}
-	printf("Posicao: %d\n", philo[0].id);
 	return(philo);
 }
