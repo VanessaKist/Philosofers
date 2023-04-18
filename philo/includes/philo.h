@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:33:45 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/18 17:56:18 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/18 19:02:23 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ typedef pthread_mutex_t	t_mutex;
 
 typedef struct s_data
 {
-
 	time_t  death;
     time_t  time_spended;
 	int		tot;
 	time_t	start_time;
+	int		flag;
 	t_fork	**forks;
 	t_mutex mutex_last_meal;
 	t_mutex mutex_eat;
@@ -51,6 +51,7 @@ typedef struct s_data
 	t_mutex mutex_meals;
 	t_mutex mutex_monitor;
 	t_mutex mutex_print;
+	t_mutex mutex_flag;
 } t_data;
 
 typedef struct s_philo
