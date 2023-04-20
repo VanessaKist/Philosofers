@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:33:45 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/19 18:50:40 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/20 16:00:39 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdio.h>
 # include <pthread.h>
 # include <stdlib.h>
+# include <stdbool.h>
 #include <string.h>
 # include <sys/time.h>
 
@@ -44,6 +45,7 @@ typedef struct s_data
 	int		tot;
 	time_t	start_time;
 	int		flag;
+	bool	sim_stop;
 	t_fork	**forks;
 	t_mutex mutex_last_meal;
 	t_mutex mutex_eat;
@@ -83,5 +85,7 @@ void 	*routine(void * arg);
 long 	get_last_meal(t_philo *philo);
 void 	print_actions(t_philo *philo, int flag);
 int		is_dinner_over(t_philo *philo);
+void	set_sim_stop_flag(t_philo *philo, bool state);
+bool	has_simulation_stopped(t_philo *philo);
 
 #endif
