@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 17:48:20 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/18 20:07:10 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/19 19:40:45 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ t_philo	*new_philo(t_data *data, char **argv, int i)
 		philo[i].id = i + 1;
 		philo[i].meals_done = 0;
 		philo[i].last_meal = last_meal;
-		philo[i].meals = atoi(argv[5]);
+		//philo[i].meals = atoi(argv[5]);
 		philo[i].forks[1] = data->forks[i];
 		philo[i].forks[0] = data->forks[(i + 1) % data->tot];
 		if (philo[i].id % 2)

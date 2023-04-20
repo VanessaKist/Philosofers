@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:33:45 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/18 19:02:23 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/19 18:50:40 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,5 +82,6 @@ void 	create_thread(t_data *data, char **argv, t_philo *philo);
 void 	*routine(void * arg);
 long 	get_last_meal(t_philo *philo);
 void 	print_actions(t_philo *philo, int flag);
+int		is_dinner_over(t_philo *philo);
 
 #endif
