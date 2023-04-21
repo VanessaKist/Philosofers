@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 00:35:22 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/20 16:57:11 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/20 22:07:01 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,9 @@
 
 void	take_fork(t_philo *philo)
 {
-	pthread_mutex_lock(philo->forks[1]);
+	pthread_mutex_lock(philo->fork_left);
 	print_actions(philo, FORK1);	
-	pthread_mutex_lock(philo->forks[0]);
+	pthread_mutex_lock(philo->fork_right);
 	print_actions(philo, FORK2);
 }
 
@@ -42,20 +42,6 @@ int is_dinner_over(t_philo *philo)
 	return (0);
 }
 
-bool	has_simulation_stopped(t_philo *philo)
-{
-	bool	r;
-
-	r = false;
-	pthread_mutex_lock(&(philo->data->mutex_stop));
-	if (philo->data->sim_stop == true)
-	{
-		printf("sim stop: %d\n", philo->data->sim_stop);
-		r = true;
-	}
-	pthread_mutex_unlock(&(philo->data->mutex_stop));
-	return (r);
-}
 
 // int have_meals(t_philo *philo)
 // {
@@ -74,27 +60,72 @@ bool	has_simulation_stopped(t_philo *philo)
 
 	// if(have_meals(philo) == 1)
 		// 	break;
+
+int eating(t_philo *philo)
+{
+	int i;
+
+	i = 0;
+	while (i < philo->time_eat)
+	{
+		if (is_dinner_over(philo) == 0)	
+			usleep(1000);
+		else
+		{
+			pthread_mutex_unlock(philo->fork_left);
+			pthread_mutex_unlock(philo->fork_right);		
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+
+int sleeping(t_philo *philo)
+{
+	int i;
+
+	i = 0;
+	while (i < philo->time_sleep)
+	{
+		if (is_dinner_over(philo) == 0)
+			usleep(1000);
+		else
+			return (1);
+		i++;	
+	}
+	return (0);
+}
+		
 void *routine(void * arg)
 {
     t_philo *philo;
-    
+	
     philo = (t_philo*)arg;
+	
+	//pthread_mutex_lock(&(philo->data->mutex_stop));
+	if (philo->start == 0 && philo->id % 2 == 0)
+	{
+		philo->start = 1;
+		usleep(1000 * 35);
+		printf("philo id: %d\n", philo->id);
+	}
+//	pthread_mutex_unlock(&(philo->data->mutex_stop));
 	while(is_dinner_over(philo) == 0)
 	{
+		print_actions(philo, THINK);
 		take_fork(philo);
-		pthread_mutex_lock(&(philo->data->mutex_eat));
+		//pthread_mutex_lock(&(philo->data->mutex_eat));
 		philo->meals_done++;
-		printf("Meals Done: %d\n", philo->meals_done);
 		print_actions(philo, EAT);
-		usleep(philo->time_eat * 1000);
+		if (eating(philo) == 1)
+			break;
+		pthread_mutex_unlock(philo->fork_left);
+		pthread_mutex_unlock(philo->fork_right);
 		philo->last_meal = get_time_in_ms();
-		pthread_mutex_unlock(&(philo->data->mutex_eat));
-		pthread_mutex_unlock(philo->forks[1]);
-		pthread_mutex_unlock(philo->forks[0]);
+	//	pthread_mutex_unlock(&(philo->data->mutex_eat));
 		print_actions(philo, SLEEP);
-		usleep(philo->time_sleep * 1000);
-		print_actions(philo, THINK);	
-		
+		sleeping(philo);
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:33:45 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/20 16:00:39 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/20 21:22:22 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ typedef struct s_data
 	int		tot;
 	time_t	start_time;
 	int		flag;
-	bool	sim_stop;
-	t_fork	**forks;
+	t_fork	*forks;
 	t_mutex mutex_last_meal;
 	t_mutex mutex_eat;
+	t_mutex mutex_routine;
 	t_mutex mutex_stop;
 	t_mutex mutex_meals;
 	t_mutex mutex_monitor;
@@ -61,13 +61,15 @@ typedef struct s_philo
 	time_t	last_meal;
 	int	    id;
 	int	    tot;
+	char 	start;
 	int 	condition;
     time_t	time_eat;
 	time_t	time_sleep;
     time_t  time_die;
 	int		meals;
 	int 	meals_done;
-	t_fork	**forks;
+	t_fork	*fork_right;
+	t_fork	*fork_left;
     t_data	*data;
 } t_philo;
 
@@ -76,7 +78,7 @@ time_t  eat_philo(t_philo *philo);
 void  	sleep_philo(t_philo *philo);
 t_philo	*new_philo(t_data *data, char **argv, int i);
 t_data	*new_data(char **argv);
-t_fork	**init_forks(t_data *data);
+t_fork	*init_forks(t_data *data);
 void 	get_forks(t_philo *philo);
 void	free_forks(t_data *data);
 void 	*check_death(void *arg);
@@ -85,7 +87,5 @@ void 	*routine(void * arg);
 long 	get_last_meal(t_philo *philo);
 void 	print_actions(t_philo *philo, int flag);
 int		is_dinner_over(t_philo *philo);
-void	set_sim_stop_flag(t_philo *philo, bool state);
-bool	has_simulation_stopped(t_philo *philo);
 
 #endif

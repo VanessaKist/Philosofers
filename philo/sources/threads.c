@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 00:18:50 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/18 15:06:51 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/20 20:29:01 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,4 +34,5 @@ void create_thread(t_data *data, char **argv, t_philo *philo)
         i++;
     }
 	pthread_join(monitoring_thread, NULL);
+    free(thread);
 }
