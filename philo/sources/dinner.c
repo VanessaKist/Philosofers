@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 00:35:22 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/21 18:04:41 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/21 18:37:35 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,11 +97,11 @@ void *routine(void * arg)
 		take_fork(philo);
 		philo->meals_done++;
 		print_actions(philo, EAT);
+		philo->last_meal = get_time_in_ms();
 		if (eating(philo) == 1)
 			break;
 		pthread_mutex_unlock(philo->fork_left);
 		pthread_mutex_unlock(philo->fork_right);
-		philo->last_meal = get_time_in_ms();
 		print_actions(philo, SLEEP);
 		sleeping(philo);
 	}

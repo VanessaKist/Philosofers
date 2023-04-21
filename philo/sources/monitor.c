@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 22:59:44 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/21 18:22:37 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/21 18:27:01 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void *check_death(void *arg)
 		{	
 			pthread_mutex_lock(&(philo->data->mutex_monitor));
 			time = get_time_in_ms() - get_last_meal(&philo[i]);
-			if (time >= philo[i].time_die)
+			if (time > philo[i].time_die)
 			{		
 				print_actions(&philo[i], DEAD);
 				dinner_end(&philo[i]);
