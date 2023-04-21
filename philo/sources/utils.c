@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 22:54:48 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/20 21:36:00 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/21 18:20:21 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void print_actions(t_philo *philo, int flag)
 {
-	if (is_dinner_over(philo) == 0)
+	if (is_dinner_over(philo) == 0 && are_philos_full(philo) == 0)
 	{
 		pthread_mutex_lock(&(philo->data->mutex_print));
 		if (flag == EAT)

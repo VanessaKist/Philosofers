@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 00:35:22 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/20 22:07:01 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/21 18:04:41 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,34 +32,17 @@ long get_last_meal(t_philo *philo)
 
 int is_dinner_over(t_philo *philo)
 {
-	pthread_mutex_lock(&(philo->data->mutex_stop));
 	if (philo->data->flag == 1)
-	{
-		pthread_mutex_unlock(&(philo->data->mutex_stop));
 		return (1);
-	}
-	pthread_mutex_unlock(&(philo->data->mutex_stop));
 	return (0);
 }
 
-
-// int have_meals(t_philo *philo)
-// {
-// 	int i;
-// 	i = -1;
-// 	pthread_mutex_lock(&(philo->data->mutex_stop));
-// 	while (++i < philo->data->tot)
-// 	{
-// 		pthread_mutex_unlock(&(philo->data->mutex_stop));
-// 		if (philo[i].meals_done == philo[i].meals)
-// 			return(1);
-// 	}
-// 	pthread_mutex_unlock(&(philo->data->mutex_stop));
-// 	return(0);
-// }
-
-	// if(have_meals(philo) == 1)
-		// 	break;
+int are_philos_full(t_philo *philo)
+{
+	if (philo->data->flag2 == 1)
+		return (1);
+	return (0);
+}
 
 int eating(t_philo *philo)
 {
@@ -88,7 +71,7 @@ int sleeping(t_philo *philo)
 	i = 0;
 	while (i < philo->time_sleep)
 	{
-		if (is_dinner_over(philo) == 0)
+		if (is_dinner_over(philo) == 0 && are_philos_full(philo) == 0)
 			usleep(1000);
 		else
 			return (1);
@@ -103,19 +86,15 @@ void *routine(void * arg)
 	
     philo = (t_philo*)arg;
 	
-	//pthread_mutex_lock(&(philo->data->mutex_stop));
 	if (philo->start == 0 && philo->id % 2 == 0)
 	{
 		philo->start = 1;
 		usleep(1000 * 35);
-		printf("philo id: %d\n", philo->id);
 	}
-//	pthread_mutex_unlock(&(philo->data->mutex_stop));
-	while(is_dinner_over(philo) == 0)
+	while(is_dinner_over(philo) == 0 && are_philos_full(philo) == 0)
 	{
 		print_actions(philo, THINK);
 		take_fork(philo);
-		//pthread_mutex_lock(&(philo->data->mutex_eat));
 		philo->meals_done++;
 		print_actions(philo, EAT);
 		if (eating(philo) == 1)
@@ -123,7 +102,6 @@ void *routine(void * arg)
 		pthread_mutex_unlock(philo->fork_left);
 		pthread_mutex_unlock(philo->fork_right);
 		philo->last_meal = get_time_in_ms();
-	//	pthread_mutex_unlock(&(philo->data->mutex_eat));
 		print_actions(philo, SLEEP);
 		sleeping(philo);
 	}

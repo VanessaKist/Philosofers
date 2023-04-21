@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:33:45 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/20 21:22:22 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/21 17:47:22 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,10 +45,10 @@ typedef struct s_data
 	int		tot;
 	time_t	start_time;
 	int		flag;
+	int		flag2;
 	t_fork	*forks;
 	t_mutex mutex_last_meal;
 	t_mutex mutex_eat;
-	t_mutex mutex_routine;
 	t_mutex mutex_stop;
 	t_mutex mutex_meals;
 	t_mutex mutex_monitor;
@@ -87,5 +87,6 @@ void 	*routine(void * arg);
 long 	get_last_meal(t_philo *philo);
 void 	print_actions(t_philo *philo, int flag);
 int		is_dinner_over(t_philo *philo);
+int 	are_philos_full(t_philo *philo);
 
 #endif
