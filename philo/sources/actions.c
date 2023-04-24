@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 16:58:23 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/24 17:04:05 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/24 19:22:50 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int eating(t_philo *philo)
 	i = 0;
 	while (i < philo->time_eat)
 	{
-		if (is_dinner_over(philo) == 0)	
+		if (is_dinner_over(philo) == 0 && are_philos_full(philo) == 0)	
 			usleep(1000);
 		else
 		{
