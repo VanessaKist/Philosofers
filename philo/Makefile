@@ -6,7 +6,9 @@ PATH_INCL = ./includes/
 
 SRCS = $(addprefix $(PATH_SRCS), philo.c \
 	utils.c \
+	actions.c \
 	time.c \
+	print.c \
 	monitor.c \
 	free.c \
 	threads.c \

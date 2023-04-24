@@ -6,13 +6,13 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 22:59:44 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/21 18:27:01 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/24 17:06:23 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void dinner_end(t_philo *philo)
+static void dinner_end(t_philo *philo)
 {
 	pthread_mutex_lock(&(philo->data->mutex_flag));
 	philo->data->flag = 1;
@@ -27,6 +27,16 @@ static int	get_meals_done(t_philo *philo)
 	meals_done = philo->meals_done;
 	pthread_mutex_unlock(&philo->data->mutex_stop);
 	return (meals_done);
+}
+
+static long get_last_meal(t_philo *philo)
+{
+	long last_meal;
+
+	pthread_mutex_lock(&(philo->data->mutex_last_meal));
+	last_meal = philo->last_meal;
+	pthread_mutex_unlock(&(philo->data->mutex_last_meal));
+	return (last_meal);
 }
 
 int	have_meals(t_philo *philo)

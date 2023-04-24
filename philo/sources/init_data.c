@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 17:48:20 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/24 15:32:11 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/24 16:52:11 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ t_data *new_data(char **argv)
 	data->flag = 0;
 	data->flag2 = 0;
 	pthread_mutex_init(&data->mutex_last_meal, NULL);
-	pthread_mutex_init(&data->mutex_eat, NULL);
 	pthread_mutex_init(&data->mutex_stop, NULL);
 	pthread_mutex_init(&data->mutex_meals, NULL);
 	pthread_mutex_init(&data->mutex_print, NULL);

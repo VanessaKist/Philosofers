@@ -6,16 +6,15 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:12:09 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/24 16:20:45 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/24 16:51:55 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-void	clean(t_data *data)
+static void clean(t_data *data)
 {
 	pthread_mutex_destroy(&data->mutex_last_meal);
-  pthread_mutex_destroy(&data->mutex_eat);
   pthread_mutex_destroy(&data->mutex_stop);
   pthread_mutex_destroy(&data->mutex_meals);
   pthread_mutex_destroy(&data->mutex_monitor);
@@ -30,6 +29,8 @@ int main(int argc, char **argv)
     
     if (argc < 5 || argc > 6)
       return (0);
+    if (check_input(argc, argv))
+      return (1);
     data = new_data(argv);
     philo = new_philo(data, argv, argc, 0);
 	  create_thread(data, argv, philo);
