@@ -6,19 +6,17 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 17:48:20 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/24 16:52:11 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/24 18:10:04 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-//STATIC
-
 t_data *new_data(char **argv)
 {
     t_data *data;
     
-    data = malloc(sizeof(t_data));
+    data = ft_calloc(sizeof(t_data), 1);
     data->tot = atoi(argv[1]);
  	data->start_time = get_time_in_ms();
     data->forks = init_forks(data);
@@ -37,7 +35,7 @@ t_data *new_data(char **argv)
  	int	i;
  	t_fork	*forks;
 
- 	forks = malloc(sizeof(t_fork) * data->tot);
+ 	forks = ft_calloc(sizeof(t_fork), data->tot);
  	i = 0;
  	while (i < data->tot)
  	{
@@ -53,12 +51,12 @@ t_philo	*new_philo(t_data *data, char **argv, int argc, int i)
 	long	last_meal;
 
 	last_meal = get_time_in_ms();
-	philo = malloc(atoi(argv[1]) * sizeof(t_philo));
+	philo = ft_calloc(atoi(argv[1]), sizeof(t_philo));
 	while (i < atoi(argv[1]))
 	{   
-		philo[i].time_eat = atoi(argv[2]);
-		philo[i].time_sleep = atoi(argv[3]);
-		philo[i].time_die = atoi(argv[4]);
+		philo[i].time_eat = atoi(argv[3]);
+		philo[i].time_sleep = atoi(argv[4]);
+		philo[i].time_die = atoi(argv[2]);
 		philo[i].meals_done = 0;
 		philo[i].id = i + 1;
 		philo[i].last_meal = last_meal;

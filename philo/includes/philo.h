@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:33:45 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/24 17:08:55 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/24 17:50:40 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,6 @@ void 	*philo_solo(t_philo *philo);
 int 	check_input(int argc, char **argv);
 int		sleeping(t_philo *philo);
 int		eating(t_philo *philo);
+void	*ft_calloc(size_t count, size_t size);
 
 #endif
