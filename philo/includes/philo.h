@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:33:45 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/21 17:47:22 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/24 16:02:51 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ typedef struct s_philo
 time_t	get_time_in_ms(void);
 time_t  eat_philo(t_philo *philo);
 void  	sleep_philo(t_philo *philo);
-t_philo	*new_philo(t_data *data, char **argv, int i);
+t_philo	*new_philo(t_data *data, char **argv, int argc, int i);
 t_data	*new_data(char **argv);
 t_fork	*init_forks(t_data *data);
 void 	get_forks(t_philo *philo);
@@ -88,5 +88,6 @@ long 	get_last_meal(t_philo *philo);
 void 	print_actions(t_philo *philo, int flag);
 int		is_dinner_over(t_philo *philo);
 int 	are_philos_full(t_philo *philo);
+void 	*philo_solo(t_philo *philo);
 
 #endif

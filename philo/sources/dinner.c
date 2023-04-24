@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 00:35:22 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/21 18:37:35 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/24 16:19:21 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,13 @@ long get_last_meal(t_philo *philo)
 	last_meal = philo->last_meal;
 	pthread_mutex_unlock(&(philo->data->mutex_last_meal));
 	return (last_meal);
+}
+
+void increase_meals(t_philo *philo)
+{
+	pthread_mutex_lock(&(philo->data->mutex_meals));
+	philo->meals_done++;
+	pthread_mutex_unlock(&(philo->data->mutex_meals));
 }
 
 int is_dinner_over(t_philo *philo)
@@ -79,13 +86,24 @@ int sleeping(t_philo *philo)
 	}
 	return (0);
 }
-		
+
+void *philo_solo(t_philo *philo)
+{
+	print_actions(philo, THINK);
+	pthread_mutex_lock(philo->fork_left);
+	print_actions(philo, FORK1);
+	pthread_mutex_unlock(philo->fork_left);
+	return (NULL);
+}
+
 void *routine(void * arg)
 {
     t_philo *philo;
 	
     philo = (t_philo*)arg;
 	
+	if (philo->data->tot == 1)
+		return (philo_solo(philo));
 	if (philo->start == 0 && philo->id % 2 == 0)
 	{
 		philo->start = 1;
@@ -95,7 +113,7 @@ void *routine(void * arg)
 	{
 		print_actions(philo, THINK);
 		take_fork(philo);
-		philo->meals_done++;
+		increase_meals(philo);
 		print_actions(philo, EAT);
 		philo->last_meal = get_time_in_ms();
 		if (eating(philo) == 1)
