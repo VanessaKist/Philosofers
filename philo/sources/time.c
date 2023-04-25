@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/28 17:20:54 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/24 18:58:59 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/25 17:14:10 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ time_t	get_time_in_ms(void)
 	gettimeofday(&tv, NULL);
 	return ((tv.tv_sec * 1000) + (tv.tv_usec / 1000));
 }
-
 
 void	msleep(int time)
 {

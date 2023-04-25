@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 22:54:48 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/24 17:50:23 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/25 17:02:34 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,4 +57,35 @@ void	*ft_calloc(size_t count, size_t size)
 	while (i < size * count)
 		p[i++] = '\0';
 	return (p);
+}
+
+int	ft_isdigit(int c)
+{
+	if (c >= '0' && c <= '9')
+		return (1);
+	else
+		return (0);
+}
+
+int	ft_atoi(const char *str)
+{
+	int	nbr;
+	int	sign;
+
+	nbr = 0;
+	sign = 1;
+	while (*str == 32 || (*str > 8 && *str < 14))
+		str++;
+	if ((*str == 45) || (*str == 43))
+	{
+		if (*str == 45)
+			sign = -1;
+		str++;
+	}
+	while (ft_isdigit(*str))
+	{
+		nbr = (nbr * 10) + (*str - 48);
+		str++;
+	}
+	return (nbr * sign);
 }

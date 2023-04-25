@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 00:35:22 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/24 19:20:08 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/25 17:18:57 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,11 +68,12 @@ void *routine(void * arg)
 	if (philo->start == 0 && philo->id % 2 == 0)
 	{
 		philo->start = 1;
-		usleep(1000);
-	}
+		usleep(1000 * 35);
+	}	
 	while(is_dinner_over(philo) == 0 && are_philos_full(philo) == 0)
 	{
 		print_actions(philo, THINK);
+		usleep(500);
 		take_fork(philo);
 		print_actions(philo, EAT);
 		increase_meals(philo);
