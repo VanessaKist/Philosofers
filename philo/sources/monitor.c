@@ -6,13 +6,13 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 22:59:44 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/25 19:43:30 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:14:59 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/philo.h"
 
-static void dinner_end(t_philo *philo)
+static void	dinner_end(t_philo *philo)
 {
 	pthread_mutex_lock(&(philo->data->mutex_flag));
 	philo->data->flag = 1;
@@ -29,9 +29,9 @@ static int	get_meals_done(t_philo *philo)
 	return (meals_done);
 }
 
-static long get_last_meal(t_philo *philo)
+static long	get_last_meal(t_philo *philo)
 {
-	long last_meal;
+	long	last_meal;
 
 	pthread_mutex_lock(&(philo->data->mutex_last_meal));
 	last_meal = philo->last_meal;
@@ -54,29 +54,32 @@ static int	have_meals(t_philo *philo)
 	}
 	if (cont == philo->data->tot)
 	{
+		pthread_mutex_lock(&(philo->data->mutex_flag));
 		philo->data->flag2 = 1;
+		pthread_mutex_unlock(&(philo->data->mutex_flag));
 		return (1);
 	}
 	return (0);
 }
 
-void *check_death(void *arg)
+void	*check_death(void *arg)
 {
-	t_philo *philo;
-	int i;
-	long time;
-	i = -1;	
-	philo = (t_philo*)arg;
+	t_philo	*philo;
+	int		i;
+	long	time;
+
+	i = -1;
+	philo = (t_philo *)arg;
 	while (!have_meals(philo))
 	{
 		usleep(1000);
-		i = -1;	
+		i = -1;
 		while (++i < philo->data->tot)
-		{	
+		{
 			pthread_mutex_lock(&(philo->data->mutex_monitor));
 			time = get_time_in_ms() - get_last_meal(&philo[i]);
-			if (time > philo[i].time_die)
-			{		
+			if (time > philo[i].data->time_die)
+			{
 				print_actions(&philo[i], DEAD);
 				dinner_end(&philo[i]);
 				pthread_mutex_unlock(&(philo->data->mutex_monitor));

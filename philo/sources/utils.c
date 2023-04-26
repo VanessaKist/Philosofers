@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 22:54:48 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/25 17:02:34 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/26 18:55:33 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,9 @@ static int	has_word(char *str)
 	return (1);
 }
 
-int check_input(int argc, char **argv)
+int	check_input(int argc, char **argv)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (i < argc)
@@ -37,7 +37,7 @@ int check_input(int argc, char **argv)
 			return (1);
 		i++;
 	}
-	return 0;
+	return (0);
 }
 
 void	*ft_calloc(size_t count, size_t size)
