@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/15 22:59:44 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/25 17:25:49 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/25 19:43:30 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,9 +23,9 @@ static int	get_meals_done(t_philo *philo)
 {
 	int	meals_done;
 
-	pthread_mutex_lock(&philo->data->mutex_stop);
+	pthread_mutex_lock(&philo->data->mutex_meals);
 	meals_done = philo->meals_done;
-	pthread_mutex_unlock(&philo->data->mutex_stop);
+	pthread_mutex_unlock(&philo->data->mutex_meals);
 	return (meals_done);
 }
 
@@ -39,7 +39,7 @@ static long get_last_meal(t_philo *philo)
 	return (last_meal);
 }
 
-int	have_meals(t_philo *philo)
+static int	have_meals(t_philo *philo)
 {
 	int	i;
 	int	cont;
@@ -54,9 +54,7 @@ int	have_meals(t_philo *philo)
 	}
 	if (cont == philo->data->tot)
 	{
-		pthread_mutex_lock(&(philo->data->mutex_flag));
 		philo->data->flag2 = 1;
-		pthread_mutex_unlock(&(philo->data->mutex_flag));
 		return (1);
 	}
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:33:45 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/24 18:55:23 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/25 19:32:37 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@
 # include <pthread.h>
 # include <stdlib.h>
 # include <stdbool.h>
-#include <string.h>
+# include <string.h>
 # include <sys/time.h>
 
 #define EAT 1
@@ -42,6 +42,7 @@ typedef struct s_data
 	int		flag2;
 	t_fork	*forks;
 	t_mutex mutex_last_meal;
+	t_mutex mutex_have_meal;
 	t_mutex mutex_stop;
 	t_mutex mutex_meals;
 	t_mutex mutex_monitor;
@@ -77,11 +78,13 @@ void 	*routine(void * arg);
 void 	print_actions(t_philo *philo, int flag);
 int		is_dinner_over(t_philo *philo);
 int 	are_philos_full(t_philo *philo);
-void 	*philo_solo(t_philo *philo);
 int 	check_input(int argc, char **argv);
 int		sleeping(t_philo *philo);
 int		eating(t_philo *philo);
 void	*ft_calloc(size_t count, size_t size);
+int		ft_atoi(const char *str);
+int		ft_isdigit(int c);
 void	msleep(int time);
+void	take_fork(t_philo *philo);
 
 #endif
