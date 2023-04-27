@@ -6,7 +6,7 @@
 /*   By: vkist-si <vkist-si@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/13 20:12:09 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/27 00:17:51 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:30:45 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int argc, char **argv)
 		return (1);
 	data = new_data(argv);
 	philo = new_philo(data, argv, argc, 0);
-	create_thread(data, argv, philo);
+	create_thread(argv, philo);
 	free_forks(data);
 	clean(data);
 	free(philo);

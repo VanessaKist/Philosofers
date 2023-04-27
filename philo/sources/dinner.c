@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   dinner.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkist-si <vkist-si@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/16 00:35:22 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/26 17:22:40 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:31:31 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	*philo_solo(t_philo *philo)
 {
 	print_actions(philo, THINK);
 	pthread_mutex_lock(philo->fork_left);
-	print_actions(philo, FORK1);
+	print_actions(philo, FORK);
 	pthread_mutex_unlock(philo->fork_left);
 	return (NULL);
 }

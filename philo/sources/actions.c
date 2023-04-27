@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   actions.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: vkist-si <vkist-si@student.42.fr>          +#+  +:+       +#+        */
+/*   By: vkist-si <vkist-si@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/24 16:58:23 by vkist-si          #+#    #+#             */
-/*   Updated: 2023/04/26 18:01:50 by vkist-si         ###   ########.fr       */
+/*   Updated: 2023/04/27 17:28:28 by vkist-si         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ void	take_fork(t_philo *philo)
 	if (philo->id == 1)
 	{
 		pthread_mutex_lock(philo->fork_right);
-		print_actions(philo, FORK2);
+		print_actions(philo, FORK);
 		pthread_mutex_lock(philo->fork_left);
-		print_actions(philo, FORK1);
+		print_actions(philo, FORK);
 	}
 	else
 	{
 		pthread_mutex_lock(philo->fork_left);
-		print_actions(philo, FORK1);
+		print_actions(philo, FORK);
 		pthread_mutex_lock(philo->fork_right);
-		print_actions(philo, FORK2);
+		print_actions(philo, FORK);
 	}
 }
 
