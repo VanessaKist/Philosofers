@@ -39,3 +39,8 @@ cd philo
 ```bash
 make
 ```
+#### Run as example:
+
+```bash
+./philo 5 800 200 200 10
+```
