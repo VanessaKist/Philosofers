@@ -21,3 +21,21 @@ During that time, they will need to hold two forks.
 philosophers have eaten at least number_of_times_each_philosopher_must_eat
 times, the simulation stops. If not specified, the simulation stops when a
 philosopher dies.
+
+1. Clone the repository:
+
+```bash
+git clone https://github.com/VanessaKist/Philosofers
+```
+
+2. Change to the repository directory:
+
+```bash
+cd philo
+```
+
+3. Compile the project using the provided Makefile:
+
+```bash
+make
+```
